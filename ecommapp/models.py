@@ -43,3 +43,10 @@ class Orders(models.Model):
     )
     status=models.CharField(max_length=100,choices=options,default="order-placed")
 
+class Reviews(models.Model):
+    product=models.ForeignKey(Products,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    rating=models.IntegerField()
+    comments=models.CharField(max_length=200)
+
+
