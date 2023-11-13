@@ -16,3 +16,15 @@ class Products(models.Model):
     description=models.CharField(max_length=250,null=True)
     def __str__(self):
         return self.product_name
+    
+class Cart(models.Model):
+    product=models.ForeignKey(Products,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    order_date=models.DateField(auto_now_add=True,null=True)
+    quantity=models.IntegerField(default=1)
+    options=(
+        ("in-cart","in-cart"),
+        ("order-placed","order-placed"),
+        ("cancelled","cancelled")    
+    )
+    status=models.CharField(max_length=100,choices=options,default="in-cart")
