@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.]
 
@@ -28,3 +29,17 @@ class Cart(models.Model):
         ("cancelled","cancelled")    
     )
     status=models.CharField(max_length=100,choices=options,default="in-cart")
+
+class Orders(models.Model):
+    product=models.ForeignKey(Products,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    order_date=models.DateField(auto_now_add=True,null=True)
+    options=(
+        ("order-placed","order-placed"),
+        ("dispatched","dispatched"),
+        ("in-transit","in-transit"),
+        ("deliverd","deliverd"),
+        ("cancelled","cancelled")
+    )
+    status=models.CharField(max_length=100,choices=options,default="order-placed")
+
